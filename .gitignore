@@ -1,0 +1,10 @@
+.env
+.DS_Store
+node_modules
+npm-debug.log
+yarn-error.log
+
+newrelic_agent.log
+npm-debug*
+.envrc
+.vscode
