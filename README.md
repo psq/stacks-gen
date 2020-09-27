@@ -2,13 +2,22 @@
 
 Generate all the keys needed for use with Stacks 2.0 Mining and Stacking
 
-## usage
+## prerequisites
+You will need to have node.js and npm installed first.  Head over to the [node.js download](https://nodejs.org/en/download/) page
+
+## usage with npx
+If `npx` is not installed, install it first
+```
+npm install -g npx
+```
+Then you can use this command
+
 ```
 npx -q stacks-gen sk --testnet
 ```
 `-q` is not required, but it will avoid displaying compilation warnings.
 
-or
+## usage with npm
 
 ```
 npm i -g stacks-gen
@@ -40,8 +49,10 @@ npx stacks-gen sk
 sk (secret keys)
 
 #### Options
+* `--help`: displays the help
 * `--phrase "phrase"`, `-p "phrase"`: provide the secret phrase to use, useful if you already have one
 * `--testnet`, `-t`: genereate keys suitable for testnet
+* `--version`: displays the version
 * `--words 12|24`, `-w 12|24`: generate a 12 or 24 words secret phrase
 
 ## NOTES
