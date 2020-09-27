@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "dependencies": {
     "@blockstack/stacks-transactions": "^0.7.0",
     "bip39": "^3.0.2",
@@ -15,8 +14,10 @@
     "node": ">=12.15"
   },
   "main": "src/index.js",
+  "name": "stacks-gen",
   "scripts": {
     "start": "node src/index.js"
   },
+  "type": "module",
   "version": "0.1.0"
 }
