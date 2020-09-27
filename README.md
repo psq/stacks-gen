@@ -4,8 +4,9 @@ Generate all the keys needed for use with Stacks 2.0 Mining and Stacking
 
 ## usage
 ```
-npx stacks-gen sk --testnet
+npx -q stacks-gen sk --testnet
 ```
+`-q` is not required, but it will avoid displaying compilation warnings.
 
 or
 
@@ -38,7 +39,7 @@ npx stacks-gen sk
 ### Command
 sk (secret keys)
 
-### Options
+#### Options
 * `--phrase "phrase"`, `-p "phrase"`: provide the secret phrase to use, useful if you already have one
 * `--testnet`, `-t`: genereate keys suitable for testnet
 * `--words 12|24`, `-w 12|24`: generate a 12 or 24 words secret phrase
