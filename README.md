@@ -43,12 +43,12 @@ npx stacks-gen sk
   "wif": "L1GFZXR2UKyH9gP9iQGbweTaW5Ab9rTNe2kzB8RSEa695M684vQj"
 }
 ```
-
-* `private`: the public key to use as `seed` when running a miner`, not used at the moment, but useful to generat other keys
+* `phrase`: the 12 or 24 word secret phrase (do not not share!)
+* `private`: the private key to use as `seed` when running a miner`, not used at the moment, but useful to generat other keys (do not not share!)
 * `stacks`: your Stacks address
 * `stacking`: the value to use when sending to the `stc-stack` function on the stacking contract
 * `btc`: the BTC address you need to fund for mining
-* `wif`: the Wallet Import Format key to use with bitcoind (this is your BTC private key), where you'll get your stacking rewards
+* `wif`: the Wallet Import Format key to use with bitcoind (this is your BTC private key), where you'll get your stacking rewards (do not not share!)
 
 ### Command
 sk (secret keys)
