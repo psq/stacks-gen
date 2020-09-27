@@ -43,4 +43,5 @@ sk (secret keys)
 * `--testnet`, `-t`: genereate keys suitable for testnet
 * `--words 12|24`, `-w 12|24`: generate a 12 or 24 words secret phrase
 
-
+## NOTES
+As of 9/26/2020, this does not work in the sandbox from the [explorer](https://testnet-explorer.blockstack.org/sandbox), as the Stacks address used is the one derived for an app, not the one directly from the seed phrase.  Once the explorer uses Connect, then this will work.

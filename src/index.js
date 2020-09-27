@@ -2,17 +2,15 @@
 // mainnet/testnet
 // generate 12/generate 24/provide 12/provide 24
 
-import crypto from 'crypto'
-import randombytes from 'randombytes'
-import bip39 from 'bip39'
-import bitcoin from 'bitcoinjs-lib'
-import stacks_transactions from '@blockstack/stacks-transactions'
-import c32c from 'c32check'
-import wif from 'wif'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
+const crypto = require('crypto')
+const randombytes = require('randombytes')
+const bip39 = require('bip39')
+const bitcoin = require('bitcoinjs-lib')
+const stacks_transactions = require('@blockstack/stacks-transactions')
+const c32c = require('c32check')
+const wif = require('wif')
+const yargs = require('yargs')
  
-
 const { generateMnemonic, mnemonicToSeed } = bip39
 const { bip32, networks, ECPair } = bitcoin
 const { ChainID, getAddressFromPrivateKey, TransactionVersion } = stacks_transactions
@@ -89,7 +87,7 @@ async function generateKeys(seed_phrase, mainnet) {
   }
 }
 
-const argv = yargs(hideBin(process.argv))
+yargs
   .scriptName("stacks-gen")
   .usage('$0 <cmd> [args]')
   .option('phrase', {
