@@ -44,7 +44,7 @@ npx stacks-gen sk
 }
 ```
 * `phrase`: the 12 or 24 word secret phrase (do not not share!)
-* `private`: the private key to use as `seed` when running a miner`, not used at the moment, but useful to generat other keys (do not not share!)
+* `private`: the private key to use as `seed` when running a miner, not used at the moment, but useful to generat other keys (do not not share!)
 * `stacks`: your Stacks address
 * `stacking`: the value to use when sending to the `stc-stack` function on the stacking contract
 * `btc`: the BTC address you need to fund for mining
