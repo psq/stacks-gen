@@ -1,6 +1,6 @@
 # stacks-gen
 
-Generate all the keys needed 
+Generate all the keys needed for use with Stacks 2.0 Mining and Stacking
 
 ## usage
 ```
@@ -28,19 +28,19 @@ npx stacks-gen sk
   "wif": "L1GFZXR2UKyH9gP9iQGbweTaW5Ab9rTNe2kzB8RSEa695M684vQj"
 }
 ```
-`private`: the private key to use as `seed` when running a miner`
-`private`: the public key to use as `seed` when running a miner`, not used at the moment, but useful to generat other keys
-`stacks`: your Stacks address
-`stacking`: the value to use when sending to the `stc-stack` function on the stacking contract
-`btc`: the BTC address you need to fund for mining
-`wif`: the Wallet Import Format key to use with bitcoind (this is your BTC private key), where you'll get your stacking rewards
+
+* `private`: the public key to use as `seed` when running a miner`, not used at the moment, but useful to generat other keys
+* `stacks`: your Stacks address
+* `stacking`: the value to use when sending to the `stc-stack` function on the stacking contract
+* `btc`: the BTC address you need to fund for mining
+* `wif`: the Wallet Import Format key to use with bitcoind (this is your BTC private key), where you'll get your stacking rewards
 
 ### Command
 sk (secret keys)
 
 ### Options
-`--phrase "phrase"`, `-p "phrase"`: provide the secret phrase to use, useful if you already have one
-`--testnet`, `-t`: genereate keys suitable for testnet
-`--words 12|24`, `-w 12|24`: generate a 12 or 24 words secret phrase
+* `--phrase "phrase"`, `-p "phrase"`: provide the secret phrase to use, useful if you already have one
+* `--testnet`, `-t`: genereate keys suitable for testnet
+* `--words 12|24`, `-w 12|24`: generate a 12 or 24 words secret phrase
 
 
