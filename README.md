@@ -19,8 +19,13 @@ npx -q stacks-gen sk --testnet
 
 ## usage with npm
 
+Install the package
 ```
 npm i -g stacks-gen
+```
+
+Then you can use this command (or other ones, see below for more details on the options)
+```
 stacks-gen sk --phrase "pass on the milk or the world will end very very soon"
 ```
 
