@@ -76,10 +76,18 @@ async function generateKeys(seed_phrase, mainnet) {
   const seedBuffer = await mnemonicToSeed(seed_phrase)
   const masterKeychain = bip32.fromSeed(seedBuffer)
   const keys = deriveStxAddressChain(mainnet ? ChainID.Mainnet : ChainID.Testnet)(masterKeychain)
+
+  const uncompressed_hex = bitcoin.ECPair.fromPublicKey(
+    Buffer.from(keys.publicKey, 'hex'),
+    { compressed: false },
+  ).publicKey.toString('hex')
+
+
   return {
     phrase: seed_phrase,
     private: keys.privateKey,
     public: keys.publicKey.toString('hex'),
+    public_uncompressed: uncompressed_hex,
     stacks: keys.address,
     stacking: `{ hashbytes: 0x${c32c.c32addressDecode(keys.address)[1]}, version: 0x00 }`,
     btc: c32c.c32ToB58(keys.address),
@@ -97,6 +105,10 @@ yargs
   .option('testnet', {
     alias: 't',
     describe: 'Generate for testnet instead of mainnet',
+  })
+  .option('key', {
+    alias: 'k',
+    describe: 'The public key to uncompress',
   })
   .option('words', {
     alias: 'w',
@@ -116,6 +128,20 @@ yargs
     console.log('generate', phrase, argv.testnet)
 
     console.log(JSON.stringify(await generateKeys(phrase, mainnet), null, 2))
+  })
+  .command('uncompress_pubpkey', 'Uncompress a public key', (yargs) => {
+    yargs.positional('uncompress_pubpkey', {
+      type: 'string',
+      describe: 'Uncompress a public key'
+    })
+  }, async function (argv) {
+    console.log('Public key:', argv.key)
+
+    const uncompressed_hex = bitcoin.ECPair.fromPublicKey(
+      Buffer.from(argv.key, 'hex'),
+      { compressed: false },
+    ).publicKey.toString('hex')
+    console.log('Public key - uncompressed:', uncompressed_hex)
   })
   .demandCommand(1, 'You need at least one command')
   .requiresArg('w')
