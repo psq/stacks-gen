@@ -72,26 +72,30 @@ function hash160(data) {
   return ripemd160(sha256(data))
 }
 
-async function generateKeys(seed_phrase, mainnet) {
-  const seedBuffer = await mnemonicToSeed(seed_phrase)
-  const masterKeychain = bip32.fromSeed(seedBuffer)
-  const keys = deriveStxAddressChain(mainnet ? ChainID.Mainnet : ChainID.Testnet)(masterKeychain)
+async function generateKeys(seed_phrase, private_key, mainnet) {
+  if (seed_phrase) {
+    const seedBuffer = await mnemonicToSeed(seed_phrase)
+    const masterKeychain = bip32.fromSeed(seedBuffer)
+    const keys = deriveStxAddressChain(mainnet ? ChainID.Mainnet : ChainID.Testnet)(masterKeychain)
 
-  const uncompressed_hex = bitcoin.ECPair.fromPublicKey(
-    Buffer.from(keys.publicKey, 'hex'),
-    { compressed: false },
-  ).publicKey.toString('hex')
+    const uncompressed_hex = bitcoin.ECPair.fromPublicKey(
+      Buffer.from(keys.publicKey, 'hex'),
+      { compressed: false },
+    ).publicKey.toString('hex')
 
 
-  return {
-    phrase: seed_phrase,
-    private: keys.privateKey,
-    public: keys.publicKey.toString('hex'),
-    public_uncompressed: uncompressed_hex,
-    stacks: keys.address,
-    stacking: `{ hashbytes: 0x${c32c.c32addressDecode(keys.address)[1]}, version: 0x00 }`,
-    btc: c32c.c32ToB58(keys.address),
-    wif: privateKeyToWIF(keys.privateKey, mainnet),
+    return {
+      phrase: seed_phrase,
+      private: keys.privateKey,
+      public: keys.publicKey.toString('hex'),
+      public_uncompressed: uncompressed_hex,
+      stacks: keys.address,
+      stacking: `{ hashbytes: 0x${c32c.c32addressDecode(keys.address)[1]}, version: 0x00 }`,
+      btc: c32c.c32ToB58(keys.address),
+      wif: privateKeyToWIF(keys.privateKey, mainnet),
+    }    
+  } else if (private_key) {
+
   }
 }
 
@@ -127,7 +131,26 @@ yargs
     const phrase = argv.phrase || generateMnemonic(entropy, randombytes)
     console.log('generate', phrase, argv.testnet)
 
-    console.log(JSON.stringify(await generateKeys(phrase, mainnet), null, 2))
+    console.log(JSON.stringify(await generateKeys(phrase, nullm, mainnet), null, 2))
+  })
+  .command('pk <key>', 'Generate keys for Stacks 2.0 from private key', (yargs) => {
+    yargs.positional('key', {
+      type: 'string',
+      describe: 'Generate keys for mainnet or testnet from private key'
+    })
+  }, async function (argv) {
+    const mainnet = !argv.testnet
+    console.log('generate from private key', argv.key, argv.testnet)
+
+    const ec_pair_compressed = ECPair.fromPrivateKey(Buffer.from(argv.key, 'hex').slice(0, 32), { compressed: true })
+    const ec_pair_uncompressed = ECPair.fromPrivateKey(Buffer.from(argv.key, 'hex').slice(0, 32), { compressed: false })
+    // console.log("ec_pair", ec_pair, ec_pair.publicKey.toString('hex'))
+
+    console.log(JSON.stringify({
+      private_key: argv.key,
+      publick_key_compressed: ec_pair_compressed.publicKey.toString('hex'),
+      publick_key_uncompressed: ec_pair_uncompressed.publicKey.toString('hex'),
+    }, null, 2))
   })
   .command('uncompress_pubpkey', 'Uncompress a public key', (yargs) => {
     yargs.positional('uncompress_pubpkey', {
