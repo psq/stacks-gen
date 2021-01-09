@@ -3,7 +3,7 @@
     "stacks-gen": "./bin/stacks-gen"
   },
   "dependencies": {
-    "@blockstack/stacks-transactions": "^0.7.0",
+    "@stacks/transactions": "^1.0.0-beta.20",
     "bip39": "^3.0.2",
     "bitcoinjs-lib": "^5.1.10",
     "blockstack": "^21.1.0",
@@ -16,12 +16,18 @@
   "engines": {
     "node": ">=12.15"
   },
-  "keywords": ["blockstack", "stacks", "mining", "stacking", "STX"],
+  "keywords": [
+    "blockstack",
+    "stacks",
+    "mining",
+    "stacking",
+    "STX"
+  ],
   "license": "MIT",
   "main": "bin/stacks-gen",
   "name": "stacks-gen",
   "scripts": {
     "start": "node src/index.js"
   },
-  "version": "0.6.2"
+  "version": "0.7.0"
 }
