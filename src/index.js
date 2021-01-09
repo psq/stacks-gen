@@ -125,7 +125,7 @@ yargs
     const mainnet = !argv.testnet
     const entropy = argv.words === 24 ? 256 : 128
     const phrase = argv.phrase || generateMnemonic(entropy, randombytes)
-    console.log('generate', phrase, argv.testnet)
+    // console.log('generate', phrase, argv.testnet)
 
     console.log(JSON.stringify(await generateKeys(phrase, mainnet), null, 2))
   })
@@ -136,7 +136,7 @@ yargs
     })
   }, async function (argv) {
     const mainnet = !argv.testnet
-    console.log('generate from private key', argv.key, argv.testnet)
+    // console.log('generate from private key', argv.key, argv.testnet)
 
     const ec_pair_compressed = ECPair.fromPrivateKey(Buffer.from(argv.key, 'hex').slice(0, 32), { compressed: true })
     const ec_pair_uncompressed = ECPair.fromPrivateKey(Buffer.from(argv.key, 'hex').slice(0, 32), { compressed: false })
