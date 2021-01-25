@@ -41,11 +41,9 @@ function deriveStxAddressChain(chain) {
     if (!childKey.privateKey) {
       throw new Error('Unable to derive private key from `rootNode`, bip32 master keychain')
     }
-
-    // console.log("childKey.privateKey", childKey.privateKey)
+    const txVersion = (chain === ChainID.Mainnet) ? TransactionVersion.Mainnet : TransactionVersion.Testnet
     const ecPair = ECPair.fromPrivateKey(childKey.privateKey)
     const privateKey = ecPairToHexString(ecPair)
-    const txVersion = (chain === ChainID.Mainnet) ? TransactionVersion.Mainnet : TransactionVersion.Testnet
     return {
       childKey,
       address: getAddressFromPrivateKey(privateKey, txVersion),
@@ -142,10 +140,17 @@ yargs
     const ec_pair_uncompressed = ECPair.fromPrivateKey(Buffer.from(argv.key, 'hex').slice(0, 32), { compressed: false })
     // console.log("ec_pair", ec_pair, ec_pair.publicKey.toString('hex'))
 
+    const txVersion = mainnet ? TransactionVersion.Mainnet : TransactionVersion.Testnet
+    const address = getAddressFromPrivateKey(argv.key, txVersion)
+
     console.log(JSON.stringify({
       private_key: argv.key,
       publick_key_compressed: ec_pair_compressed.publicKey.toString('hex'),
       publick_key_uncompressed: ec_pair_uncompressed.publicKey.toString('hex'),
+      stacks: address,
+      stacking: `{ hashbytes: 0x${c32c.c32addressDecode(address)[1]}, version: 0x00 }`,
+      btc: c32c.c32ToB58(address),
+      wif: privateKeyToWIF(ec_pair_compressed.privateKey, mainnet),
     }, null, 2))
   })
   .command('uncompress_pubpkey', 'Uncompress a public key', (yargs) => {
